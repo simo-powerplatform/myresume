@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Your Name] - Power Platform Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --apple-bg: #F5F5F7; /* Slightly off-white background, common in Apple UIs */
+            --apple-panel-bg: #FFFFFF;
+            --apple-text-primary: #1D1D1F; /* Near black for primary text */
+            --apple-text-secondary: #6E6E73; /* Gray for secondary text */
+            --apple-text-tertiary: #8A8A8E; /* Lighter gray */
+            --apple-accent-blue: #007AFF; /* Apple's signature blue */
+            --apple-accent-blue-hover: #0056b3;
+            --apple-border-color: #DCDCDC; /* Softer border color */
+            --apple-divider-color: #E5E5E5;
+            --apple-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 12px rgba(0,0,0,0.08); /* Softer, more subtle shadows */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --section-border-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--apple-bg);
+            color: var(--apple-text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            padding: 20px 0; /* Add some padding top and bottom */
+            display: flex;
+            justify-content: center;
+        }
+
+        .apple-resume-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 20px; /* Responsive margins */
+        }
+
+        .main-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: var(--apple-panel-bg);
+            border-radius: var(--section-border-radius);
+            box-shadow: var(--apple-shadow);
+        }
+
+        .main-header h1 {
+            font-size: 2.5em;
+            font-weight: 600;
+            color: var(--apple-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .main-header .job-title {
+            font-size: 1.25em;
+            color: var(--apple-text-secondary);
+            font-weight: 400;
+        }
+
+        .collapsible-section {
+            background-color: var(--apple-panel-bg);
+            margin-bottom: 20px;
+            border-radius: var(--section-border-radius);
+            box-shadow: var(--apple-shadow);
+            overflow: hidden; /* Important for max-height transition */
+            border: 1px solid var(--apple-border-color);
+        }
+
+        .section-header {
+            padding: 18px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid transparent; /* Placeholder for border when open */
+            transition: background-color 0.2s ease, border-color 0.3s ease;
+        }
+        
+        .collapsible-section.expanded .section-header {
+            border-bottom-color: var(--apple-divider-color);
+        }
+
+        .section-header:hover {
+            background-color: rgba(0,0,0,0.03); /* Subtle hover */
+        }
+
+        .section-header h2 {
+            font-size: 1.3em;
+            font-weight: 500;
+            color: var(--apple-text-primary);
+        }
+
+        .section-toggle-icon {
+            font-size: 1.4em;
+            color: var(--apple-text-tertiary);
+            transition: transform 0.3s ease;
+            font-weight: 300;
+        }
+
+        .collapsible-section.expanded .section-toggle-icon {
+            transform: rotate(90deg);
+        }
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 25px; /* Horizontal padding only when content is shown */
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            color: var(--apple-text-secondary);
+        }
+
+        .collapsible-section.expanded .section-content {
+            /* max-height will be set by JS, or use a large enough value if JS isn't calculating it */
+            /* padding: 20px 25px; is an alternative if not animating padding */
+        }
+        
+        /* Specific content styling */
+        .section-content p,
+        .section-content ul,
+        .section-content .item-list {
+            margin-bottom: 15px;
+        }
+        .section-content ul {
+            list-style-position: outside;
+            padding-left: 25px; /* Indent list items */
+        }
+        .section-content ul li {
+            margin-bottom: 8px;
+        }
+        .section-content strong, .section-content h3, .section-content h4 {
+            color: var(--apple-text-primary);
+            font-weight: 500;
+        }
+        .section-content h3 { /* For job titles or project names */
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+         .section-content h4 { /* For company/date lines */
+            font-size: 0.95em;
+            color: var(--apple-text-secondary);
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+        .section-content a {
+            color: var(--apple-accent-blue);
+            text-decoration: none;
+        }
+        .section-content a:hover {
+            text-decoration: underline;
+            color: var(--apple-accent-blue-hover);
+        }
+
+        /* Skills layout */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .skill-category {
+            /* background-color: #F9F9F9; */ /* Slight differentiation */
+            padding: 10px 0;
+        }
+        .skill-category h3 {
+             margin-top: 0;
+             margin-bottom: 10px;
+             font-size: 1.05em;
+        }
+        .skill-category ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .skill-category ul li {
+            font-size: 0.95em;
+            margin-bottom: 6px;
+            padding-left: 15px;
+            position: relative;
+        }
+        .skill-category ul li::before {
+            content: "•";
+            color: var(--apple-accent-blue);
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+         .skill-category ul li strong { /* HTML5, Java emphasis */
+             font-weight: 500;
+             color: var(--apple-text-primary);
+        }
+
+
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding-top: 10px;
+        }
+        .contact-item {
+            text-align: left;
+        }
+        .contact-item strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 1em;
+        }
+        .contact-item span, .contact-item a {
+            font-size: 0.95em;
+        }
+
+        .page-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 0.85em;
+            color: var(--apple-text-tertiary);
+        }
+
+        /* Initial state for summary to be open by default */
+        #summary.collapsible-section.expanded .section-content {
+            /* Special handling in JS for initial open */
+        }
+         #summary.collapsible-section.expanded .section-toggle-icon {
+            transform: rotate(90deg);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="apple-resume-container">
+        <header class="main-header">
+            <h1>[Your Name]</h1>
+            <p class="job-title">Senior Power Platform Architect & Digital Solutions Developer</p>
+        </header>
+
+        <section id="summary" class="collapsible-section">
+            <div class="section-header">
+                <h2>Summary</h2>
+                <span class="section-toggle-icon">›</span>
+            </div>
+            <div class="section-content">
+                <p>
+                    Highly skilled Senior Power Platform Architect and Digital Solutions Developer with [Number] years of expertise in designing, deploying, and managing innovative solutions using Microsoft Power Platform (Power Apps, Power Automate, Power BI, Dataverse). Adept at translating complex business needs into efficient, user-friendly applications that drive digital transformation and optimize operational workflows. Proven track record of successful project delivery, stakeholder management, and fostering a culture of citizen development through robust governance and the Center of Excellence (CoE) framework.
+                </p>
+            </div>
+        </section>
+
+        <section id="skills" class="collapsible-section">
+            <div class="section-header">
+                <h2>Skills</h2>
+                <span class="section-toggle-icon">›</span>
+            </div>
+            <div class="section-content">
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Power Platform</h3>
+                        <ul>
+                            <li>Power Apps (Canvas, Model-Driven, Portals)</li>
+                            <li>Power Automate (Cloud & Desktop Flows, RPA)</li>
+                            <li>Power BI (DAX, Data Modeling, Visualization)</li>
+                            <li>Dataverse (Architecture, Security, Admin)</li>
+                            <li>Power Virtual Agents & AI Builder</li>
+                            <li>Governance & CoE Toolkit</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Development & Integration</h3>
+                        <ul>
+                            <li><strong>HTML5</strong>, CSS3, JavaScript (ES6+)</li>
+                            <li><strong>Java (Core, J2EE for Backend Systems)</strong></li>
+                            <li>PCF Controls</li>
+                            <li>REST APIs & Custom Connectors</li>
+                            <li>Azure (Functions, Logic Apps, DevOps)</li>
+                            <li>SharePoint Solutions</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Methodologies & Other</h3>
+                        <ul>
+                            <li>Agile, Scrum, Waterfall</li>
+                            <li>Solution Architecture & Design</li>
+                            <li>Requirements Analysis</li>
+                            <li>Stakeholder Management</li>
+                            <li>UI/UX Principles</li>
+                            <li>Project Management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="collapsible-section">
+            <div class="section-header">
+                <h2>Experience</h2>
+                <span class="section-toggle-icon">›</span>
+            </div>
+            <div class="section-content">
+                <div class="item-list">
+                    <h3>[Your Job Title]</h3>
+                    <h4>[Current/Most Recent Company Name] | [City, State] | [Dates of Employment]</h4>
+                    <ul>
+                        <li>Led the architecture and development of enterprise-scale Power Platform solutions, improving process efficiency by [Quantifiable metric].</li>
+                        <li>Administered and governed the Power Platform environment, supporting [Number] users and applications.</li>
+                        <li>Developed and implemented a comprehensive Power Platform strategy and CoE.</li>
+                        <li>[Another key accomplishment]</li>
+                    </ul>
+                </div>
+                <div class="item-list">
+                    <h3>[Previous Job Title]</h3>
+                    <h4>[Previous Company Name] | [City, State] | [Dates of Employment]</h4>
+                    <ul>
+                        <li>Designed and built [Number] Power Apps to meet specific business needs (e.g., [Example 1], [Example 2]).</li>
+                        <li>Automated critical business processes using Power Automate, resulting in [Quantifiable metric].</li>
+                        <li>Created interactive Power BI dashboards for data analysis and reporting.</li>
+                    </ul>
+                </div>
+                </div>
+        </section>
+
+        <section id="projects" class="collapsible-section">
+            <div class="section-header">
+                <h2>Projects</h2>
+                <span class="section-toggle-icon">›</span>
+            </div>
+            <div class="section-content">
+                 <div class="item-list">
+                    <h3>[Project Title 1]</h3>
+                    <h4>Key Technologies: [e.g., Power Apps, Power Automate, Dataverse]</h4>
+                    <p>Brief description of the project, highlighting your role, the problem solved, and key outcomes. For example, developed a company-wide project tracking solution that improved visibility and collaboration.</p>
+                    <ul>
+                        <li>Achieved [Quantifiable result, e.g., 20% reduction in reporting time].</li>
+                        <li>[Another key feature or outcome].</li>
+                        <li><a href="[Link to Project if available]" target="_blank">View Project (if applicable)</a></li>
+                    </ul>
+                </div>
+                 <div class="item-list">
+                    <h3>[Project Title 2]</h3>
+                    <h4>Key Technologies: [e.g., Power BI, Azure SQL, Power Query]</h4>
+                    <p>Description of another significant project. Focus on impact and your contributions.</p>
+                </div>
+                </div>
+        </section>
+        
+        <section id="education-certs" class="collapsible-section">
+            <div class="section-header">
+                <h2>Education & Certifications</h2>
+                <span class="section-toggle-icon">›</span>
+            </div>
+            <div class="section-content">
+                 <h3>Education</h3>
+                 <div class="item-list">
+                    <h4>[Your Degree] - [Major/Minor]</h4>
+                    <p>[University Name], [City, State] | [Year of Graduation]</p>
+                </div>
+                <h3 style="margin-top: 20px;">Certifications</h3>
+                <ul>
+                    <li>Microsoft Certified: Power Platform Solution Architect Expert (PL-600)</li>
+                    <li>Microsoft Certified: Power Platform Developer Associate (PL-400)</li>
+                    <li>Microsoft Certified: Power Platform Functional Consultant Associate (PL-200)</li>
+                    <li>Microsoft Certified: Power BI Data Analyst Associate (PL-300)</li>
+                    <li>[Any other relevant certifications, e.g., Java, Azure]</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="contact" class="collapsible-section">
+            <div class="section-header">
+                <h2>Contact</h2>
+                <span class="section-toggle-icon">›</span>
+            </div>
+            <div class="section-content">
+                <div class="contact-info-grid">
+                    <div class="contact-item">
+                        <strong>Email</strong>
+                        <span><a href="mailto:[Your Email Address]">[Your Email Address]</a></span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>LinkedIn</strong>
+                        <span><a href="[Your LinkedIn Profile URL]" target="_blank">[Your LinkedIn Profile URL]</a></span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Portfolio (Optional)</strong>
+                        <span><a href="[Your Portfolio URL]" target="_blank">[Your Portfolio URL]</a></span>
+                    </div>
+                     <div class="contact-item">
+                        <strong>Phone (Optional)</strong>
+                        <span>[Your Phone Number]</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="page-footer">
+            <p>&copy; <span id="currentYear"></span> [Your Name]. All rights reserved.</p>
+            <p>Last Updated: <span id="currentDateTime"></span></p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.collapsible-section');
+            const summarySection = document.getElementById('summary');
+
+            sections.forEach(section => {
+                const header = section.querySelector('.section-header');
+                const content = section.querySelector('.section-content');
+                const icon = header.querySelector('.section-toggle-icon');
+
+                // Function to open a section
+                function openSection(sec, cont, icn) {
+                    sec.classList.add('expanded');
+                    // Add padding before calculating scrollHeight for accuracy
+                    cont.style.paddingTop = '20px';
+                    cont.style.paddingBottom = '20px';
+                    cont.style.maxHeight = cont.scrollHeight + 'px'; // Set max-height to content's scroll height
+                    if (icn) icn.textContent = '⌄'; // Change icon to expanded state (optional: or use CSS :before/:after)
+                }
+
+                // Function to close a section
+                function closeSection(sec, cont, icn) {
+                    sec.classList.remove('expanded');
+                    cont.style.maxHeight = '0';
+                    cont.style.paddingTop = '0';
+                    cont.style.paddingBottom = '0';
+                    if (icn) icn.textContent = '›'; // Change icon to collapsed state
+                }
+                
+                // Set initial state: Summary open, others closed
+                if (section.id === 'summary') {
+                    openSection(section, content, icon);
+                } else {
+                    content.style.maxHeight = '0'; // Ensure it's initially closed
+                    content.style.paddingTop = '0';
+                    content.style.paddingBottom = '0';
+                    if (icon) icon.textContent = '›';
+                }
+
+
+                header.addEventListener('click', function () {
+                    const isExpanded = section.classList.contains('expanded');
+                    if (isExpanded) {
+                        closeSection(section, content, icon);
+                    } else {
+                        openSection(section, content, icon);
+                    }
+                });
+            });
+
+            // Footer date and time
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // As per context: Friday, May 9, 2025 at 7:11:04 PM EDT
+            const specificDateTime = new Date("2025-05-09T19:11:04-04:00"); // EDT is UTC-4
+            const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
+            const optionsTime = { hour: '2-digit', minute: '2-digit', timeZoneName: 'short' };
+            document.getElementById('currentDateTime').textContent = specificDateTime.toLocaleDateString('en-US', optionsDate) + ' ' + specificDateTime.toLocaleTimeString('en-US', optionsTime);
+        });
+    </script>
+</body>
+</html>

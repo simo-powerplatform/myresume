@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Your Name] // Power Platform Systems Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tesla-bg: #121212; /* Main background - very dark gray */
+            --tesla-panel-bg: #1E1E1E; /* Card/panel background */
+            --tesla-border: #333333; /* Subtle borders */
+            --tesla-text-primary: #E0E0E0; /* Primary text - off-white */
+            --tesla-text-secondary: #A0A0A0; /* Secondary text - light gray */
+            --tesla-accent: #00BFFF; /* Deep Sky Blue - for highlights, icons, interactive elements */
+            --tesla-accent-hover: #0099CC; /* Darker blue for hover */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--tesla-bg);
+            color: var(--tesla-text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            padding: 0; /* Full bleed */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for scroll */
+            min-height: 100vh;
+        }
+
+        .tesla-app-container {
+            width: 100%;
+            max-width: 1000px; /* Controls max width like an app view */
+            background-color: var(--tesla-bg); /* Can be same as body or slightly different */
+            margin: 0 auto; /* Centered for wider screens */
+            box-shadow: 0 0 30px rgba(0,0,0,0.3); /* Subtle shadow if not full bleed */
+        }
+
+        /* Header Section */
+        .app-header {
+            background-color: var(--tesla-panel-bg);
+            padding: 30px 35px;
+            text-align: left;
+            border-bottom: 1px solid var(--tesla-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .profile-info h1 {
+            font-size: 2.2em;
+            font-weight: 600;
+            color: var(--tesla-text-primary);
+            margin-bottom: 4px;
+        }
+
+        .profile-info .title {
+            font-size: 1.1em;
+            color: var(--tesla-accent);
+            font-weight: 400;
+        }
+        
+        .quick-contact-icons a {
+            color: var(--tesla-text-secondary);
+            font-size: 1.5em; /* Placeholder for icon size */
+            margin-left: 20px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .quick-contact-icons a:hover {
+            color: var(--tesla-accent);
+        }
+        /* Consider using actual SVG icons here */
+        .quick-contact-icons .icon-placeholder {
+            display: inline-block;
+            width: 24px; height: 24px;
+            /* background: var(--tesla-accent); For visualization */
+            text-align: center; line-height: 24px;
+            font-size: 0.7em; /* For text inside placeholder */
+        }
+
+
+        /* Main Content Area */
+        .app-main-content {
+            padding: 30px 35px;
+        }
+
+        .app-section {
+            margin-bottom: 35px;
+            background-color: var(--tesla-panel-bg);
+            border-radius: 12px; /* Slightly rounded corners for panels */
+            padding: 25px 30px;
+            border: 1px solid var(--tesla-border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .app-section h2 {
+            font-size: 1.5em;
+            font-weight: 500;
+            color: var(--tesla-text-primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--tesla-border);
+            display: flex;
+            align-items: center;
+        }
+        .app-section h2 .icon-prefix { /* For icon before title */
+            color: var(--tesla-accent);
+            margin-right: 12px;
+            font-size: 1.2em; /* Placeholder */
+        }
+
+
+        /* Summary Specific */
+        .summary-content p {
+            font-size: 1.05em;
+            color: var(--tesla-text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Skills Specific */
+        .skills-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .skill-pod {
+            /* background-color: rgba(0,0,0,0.1); */ /* Subtle if needed */
+        }
+        .skill-pod h3 {
+            font-size: 1.1em;
+            font-weight: 500;
+            color: var(--tesla-text-primary);
+            margin-bottom: 12px;
+        }
+        .skill-pod ul {
+            list-style: none;
+            padding: 0;
+        }
+        .skill-pod ul li {
+            color: var(--tesla-text-secondary);
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            padding: 6px 0; /* Minimal padding */
+            display: flex;
+            align-items: center;
+        }
+         .skill-pod ul li::before { /* Custom bullet */
+            content: '—'; /* Tesla-like dash */
+            color: var(--tesla-accent);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .skill-pod ul li strong { /* HTML5, Java emphasis */
+             font-weight: 500;
+             color: var(--tesla-text-primary);
+        }
+
+
+        /* Experience & Projects */
+        .item-entry {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--tesla-border);
+        }
+        .item-entry:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .item-header h3 {
+            font-size: 1.25em;
+            font-weight: 500;
+            color: var(--tesla-text-primary);
+            margin-bottom: 3px;
+        }
+        .item-header .sub-text {
+            font-size: 0.9em;
+            color: var(--tesla-text-secondary);
+            margin-bottom: 12px;
+        }
+        .item-header .sub-text strong {
+            font-weight: 500;
+            color: var(--tesla-accent);
+        }
+        .item-entry ul {
+            list-style: none; /* Use custom bullets or no bullets */
+            padding-left: 5px;
+        }
+        .item-entry ul li {
+            color: var(--tesla-text-secondary);
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px; /* Space for custom bullet */
+        }
+        .item-entry ul li::before {
+            content: '›'; /* Chevron right */
+            position: absolute;
+            left: 0;
+            top: 1px;
+            color: var(--tesla-accent);
+            font-weight: bold;
+        }
+        .item-entry p { /* For project descriptions */
+            color: var(--tesla-text-secondary);
+            margin-bottom: 10px;
+        }
+        .item-entry a {
+            color: var(--tesla-accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .item-entry a:hover {
+            text-decoration: underline;
+            color: var(--tesla-accent-hover);
+        }
+
+        /* Education & Certs */
+        .credentials-list .credential-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: rgba(255,255,255,0.03); /* Very subtle background */
+            border-radius: 6px;
+        }
+        .credential-item h4 {
+            font-size: 1.05em;
+            font-weight: 500;
+            color: var(--tesla-text-primary);
+        }
+        .credential-item p {
+            font-size: 0.9em;
+            color: var(--tesla-text-secondary);
+        }
+        
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .contact-method {
+            /* background-color: rgba(0,0,0,0.1); */
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--tesla-border);
+        }
+        .contact-method .icon-placeholder-large { /* Placeholder for larger icon */
+            font-size: 2em;
+            color: var(--tesla-accent);
+            margin-bottom: 10px;
+        }
+        .contact-method p {
+            margin-bottom: 5px;
+            color: var(--tesla-text-primary);
+        }
+        .contact-method a {
+            color: var(--tesla-accent);
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-all;
+        }
+        .contact-method a:hover {
+            color: var(--tesla-accent-hover);
+            text-decoration: underline;
+        }
+
+
+        /* App Footer */
+        .app-footer {
+            text-align: center;
+            padding: 25px 35px;
+            border-top: 1px solid var(--tesla-border);
+            font-size: 0.85em;
+            color: var(--tesla-text-secondary);
+            margin-top: 20px;
+        }
+        .app-footer p {
+            margin-bottom: 5px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .app-header {
+                padding: 20px 25px;
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+            .profile-info h1 { font-size: 1.8em; }
+            .profile-info .title { font-size: 1em; }
+            .quick-contact-icons { margin-top: 15px; }
+            .quick-contact-icons a { margin-left: 0; margin-right: 20px; }
+
+            .app-main-content { padding: 20px 25px; }
+            .app-section { padding: 20px; }
+            .app-section h2 { font-size: 1.3em; }
+        }
+         @media (max-width: 480px) {
+            body { font-size: 15px; }
+            .profile-info h1 { font-size: 1.6em; }
+            .item-header h3 {font-size: 1.15em;}
+        }
+
+    </style>
+</head>
+<body>
+    <div class="tesla-app-container">
+        <header class="app-header">
+            <div class="profile-info">
+                <h1>[Your Name]</h1>
+                <p class="title">Senior Power Platform Architect & Digital Solutions Developer</p>
+            </div>
+            <div class="quick-contact-icons">
+                <a href="mailto:[Your Email Address]" title="Email"><span class="icon-placeholder">MAIL</span></a>
+                <a href="[Your LinkedIn Profile URL]" target="_blank" title="LinkedIn"><span class="icon-placeholder">LNKD</span></a>
+                <a href="[Your Website/Portfolio Link (Optional)]" target="_blank" title="Portfolio"><span class="icon-placeholder">WEB</span></a>
+            </div>
+        </header>
+
+        <main class="app-main-content">
+            <section id="summary" class="app-section summary-content">
+                <h2><span class="icon-prefix">[i]</span>Overview</h2>
+                <p>
+                    Accomplished Senior Power Platform Architect and Digital Solutions Developer with [Number] years of experience driving innovation and efficiency. Expert in designing, developing, and managing enterprise-grade solutions using Microsoft Power Platform (Power Apps, Power Automate, Power BI, Power Virtual Agents, Dataverse). Proven ability to transform complex business requirements into elegant, high-performance technical systems. Passionate about leveraging technology to optimize processes and deliver exceptional user experiences within a governed framework.
+                </p>
+            </section>
+
+            <section id="skills" class="app-section">
+                <h2><span class="icon-prefix">[⚙️]</span>Core Competencies</h2>
+                <div class="skills-layout">
+                    <div class="skill-pod">
+                        <h3>Power Platform Suite</h3>
+                        <ul>
+                            <li>Power Apps (Canvas, Model-Driven, Portals)</li>
+                            <li>Power Automate (Cloud, Desktop RPA, BPFs)</li>
+                            <li>Power BI (DAX, Data Modeling, Visualization)</li>
+                            <li>Dataverse Architecture & Security</li>
+                            <li>Power Virtual Agents & AI Builder</li>
+                            <li>Governance & CoE Implementation</li>
+                        </ul>
+                    </div>
+                    <div class="skill-pod">
+                        <h3>Development & Integration</h3>
+                        <ul>
+                            <li><strong>HTML5</strong>, CSS3, JavaScript (ES6+)</li>
+                            <li><strong>Java (Core, Enterprise for Backend)</strong></li>
+                            <li>PCF Controls Development</li>
+                            <li>REST APIs & Custom Connectors</li>
+                            <li>Azure (Functions, Logic Apps, DevOps)</li>
+                            <li>SharePoint Solutions</li>
+                        </ul>
+                    </div>
+                    <div class="skill-pod">
+                        <h3>Methodologies & Strategic</h3>
+                        <ul>
+                            <li>Agile & Scrum Project Management</li>
+                            <li>Solution Architecture & Design</li>
+                            <li>Digital Transformation Advisory</li>
+                            <li>ALM & CI/CD Practices</li>
+                            <li>Stakeholder Engagement</li>
+                            <li>User Training & Documentation</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience" class="app-section">
+                <h2><span class="icon-prefix">[📈]</span>Professional Trajectory</h2>
+                <div class="item-entry">
+                    <div class="item-header">
+                        <h3>[Your Job Title]</h3>
+                        <p class="sub-text"><strong>[Current/Most Recent Company Name]</strong> // [City, State] // [Dates of Employment]</p>
+                    </div>
+                    <ul>
+                        <li>Led the design and delivery of [Number]+ Power Platform solutions, yielding [Quantifiable Result, e.g., X% process improvement].</li>
+                        <li>Administered Power Platform environments, ensuring optimal performance, security, and compliance for [Number] users.</li>
+                        <li>Developed and implemented Power Platform best practices and CoE guidelines.</li>
+                        <li>[Another significant achievement]</li>
+                    </ul>
+                </div>
+                <div class="item-entry">
+                    <div class="item-header">
+                        <h3>[Your Previous Job Title]</h3>
+                        <p class="sub-text"><strong>[Previous Company Name]</strong> // [City, State] // [Dates of Employment]</p>
+                    </div>
+                    <ul>
+                        <li>Developed custom Power Apps applications for [Specific business functions].</li>
+                        <li>Automated key business processes using Power Automate, reducing manual intervention by [Metric].</li>
+                        <li>Created insightful Power BI dashboards for data-driven decision-making.</li>
+                    </ul>
+                </div>
+                </section>
+
+            <section id="projects" class="app-section">
+                <h2><span class="icon-prefix">[💡]</span>Key Projects</h2>
+                 <div class="item-entry">
+                    <div class="item-header">
+                        <h3>[Project Title 1: e.g., Automated Reporting System]</h3>
+                        <p class="sub-text">Technologies: Power Automate, Power BI, SharePoint, Dataverse</p>
+                    </div>
+                    <p>Designed and deployed an automated system that [briefly describe functionality and impact]. Resulted in [quantifiable benefit].</p>
+                    <p><a href="[Link to Project Details/Demo if available]" target="_blank">View Details &rarr;</a></p>
+                </div>
+                <div class="item-entry">
+                    <div class="item-header">
+                        <h3>[Project Title 2: e.g., Client Onboarding Power App]</h3>
+                        <p class="sub-text">Technologies: Power Apps (Canvas), Dataverse, Power Automate</p>
+                    </div>
+                    <p>Developed a streamlined client onboarding application, improving data accuracy and reducing onboarding time by [X%].</p>
+                    </div>
+                </section>
+
+            <section id="education-certs" class="app-section">
+                <h2><span class="icon-prefix">[🎓]</span>Education & Certifications</h2>
+                <div class="credentials-list">
+                    <div class="credential-item">
+                        <h4>[Your Degree] - [Major/Minor]</h4>
+                        <p><strong>[University Name]</strong>, [City, State] // [Year of Graduation]</p>
+                    </div>
+                    <div class="credential-item">
+                        <h4>Microsoft Certified: Power Platform Solution Architect Expert (PL-600)</h4>
+                    </div>
+                    <div class="credential-item">
+                        <h4>Microsoft Certified: Power Platform Developer Associate (PL-400)</h4>
+                    </div>
+                    <div class="credential-item">
+                        <h4>Microsoft Certified: Power BI Data Analyst Associate (PL-300)</h4>
+                    </div>
+                     </div>
+            </section>
+
+            <section id="contact" class="app-section">
+                <h2><span class="icon-prefix">[💬]</span>Connect</h2>
+                <div class="contact-grid">
+                    <div class="contact-method">
+                        <p class="icon-placeholder-large">[✉️]</p>
+                        <p>Email</p>
+                        <a href="mailto:[Your Email Address]">[Your Email Address]</a>
+                    </div>
+                    <div class="contact-method">
+                        <p class="icon-placeholder-large">[🔗]</p>
+                        <p>LinkedIn</p>
+                        <a href="[Your LinkedIn Profile URL]" target="_blank">[Your LinkedIn Profile URL]</a>
+                    </div>
+                    <div class="contact-method">
+                        <p class="icon-placeholder-large">[🌐]</p>
+                        <p>Portfolio (Optional)</p>
+                        <a href="[Your Website/Portfolio Link]" target="_blank">[Your Portfolio Link]</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>&copy; <span id="currentYear"></span> [Your Name]. All rights reserved.</p>
+            <p>System Status: Online // Last Updated: <span id="currentDateTime"></span></p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        const now = new Date();
+        const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
+        // As per context, Friday, May 9, 2025 at 6:39:56 PM EDT
+        const specificDateTime = new Date("2025-05-09T18:39:56-04:00"); // EDT is UTC-4
+
+        document.getElementById('currentDateTime').textContent = specificDateTime.toLocaleDateString('en-US', optionsDate) + ' ' + specificDateTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZoneName: 'short' });
+    </script>
+</body>
+</html>
